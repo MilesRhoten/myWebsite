@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Welcome to My Simple Website</h1>
-    <p>This is a basic webpage served with Live Server.</p>
-    <button onclick="sayHello()">Click Me</button>
+    <h1>Firebase Data Display</h1>
+    <div id="data-container">
+        <p>Loading data...</p>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- Load the script that fetches data from Firebase -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
