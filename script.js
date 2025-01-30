@@ -2,12 +2,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-require('dotenv').config();
-const apiKey = process.env.FIREBASE_API_KEY;
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: apiKey,
+    apiKey: FIREBASE_API_KEY,
     authDomain: "esp32pumpdata.firebaseapp.com",
     databaseURL: "https://esp32pumpdata-default-rtdb.firebaseio.com",
     projectId: "esp32pumpdata",
