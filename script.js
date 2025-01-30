@@ -5,7 +5,7 @@ import { getFirestore, collection, getDocs } from "https://www.gstatic.com/fireb
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: FIREBASE_API_KEY,
+    apiKey: "AIzaSyD9rubGXDefcRikHpPy8hnF95DKDbtdLHQ",
     authDomain: "esp32pumpdata.firebaseapp.com",
     databaseURL: "https://esp32pumpdata-default-rtdb.firebaseio.com",
     projectId: "esp32pumpdata",
