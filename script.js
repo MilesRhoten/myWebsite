@@ -1,4 +1,7 @@
-import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 
 // Firebase configuration
 const firebaseConfig = {
@@ -15,24 +18,38 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
-const dbRef = ref(getDatabase());
-
-// Function to fetch all users
-async function fetchUsers() {
-    try {
-        const snapshot = await get(child(dbRef, "users")); // Fetch "users" collection
-        if (snapshot.exists()) {
-            console.log("Users:", snapshot.val()); // Display data
-        } else {
-            console.log("No users found.");
-        }
-    } catch (error) {
-        console.error("Error fetching users:", error);
-    }
+// Function to format Firestore timestamps
+function formatTimestamp(timestamp) {
+    if (!timestamp) return "None";
+    const date = timestamp.toDate(); // Convert Firestore Timestamp to JS Date
+    var output = "";
+    output = output + date.getMonth() + 1 + "/";
+    output = output + date.getDate() + "/";
+    output = output + date.getFullYear() + " ";
+    output = output + date.getHours() + ":";
+    output = output + date.getMinutes() + ":";
+    output = output + date.getSeconds();
+    return output.toLocaleString(); // Format as readable date & time
 }
 
-fetchUsers();
+// Fetch data from Firestore
+async function fetchData() {
+    const dataContainer = document.getElementById("data-container");
+
+    const querySnapshot = await getDocs(collection(db, "testCollection"));
+    querySnapshot.forEach((doc) => {
+        console.log(doc.id, "=>", doc.data());
+        const data = doc.data();
+        const flowRate = data.FlowRate ?? "None";
+        const timestamp = formatTimestamp(data.Time);     
+        const power = data.Power ?? "None";
+        const entry = document.createElement("p");
+        entry.textContent = `${timestamp} |  Power: ${power}W | Flow Rate: ${flowRate}L/min`;
+        dataContainer.appendChild(entry);
+    });
+}
+
+fetchData();
 
 function sayHello() {
     alert("Hello, World!");
