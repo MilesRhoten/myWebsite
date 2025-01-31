@@ -18,6 +18,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Function to list collections
+async function listAllCollections() {
+    const rootDocRef = doc(db, "/");  // Root reference (Firestore doesn't allow listing collections directly)
+    const collections = await listCollections(rootDocRef);
+
+    collections.forEach((collection) => {
+        console.log("Collection ID:", collection.id);
+    });
+}
+
+listAllCollections();
+
 // Fetch data from Firestore
 async function fetchData() {
     const querySnapshot = await getDocs(collection(db, "your-collection-name"));
