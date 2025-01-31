@@ -1,7 +1,4 @@
-// Import Firebase modules
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -18,27 +15,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Function to list collections
-async function listAllCollections() {
-    const rootDocRef = doc(db, "/");  // Root reference (Firestore doesn't allow listing collections directly)
-    const collections = await listCollections(rootDocRef);
 
-    collections.forEach((collection) => {
-        console.log("Collection ID:", collection.id);
-    });
+const dbRef = ref(getDatabase());
+
+// Function to fetch all users
+async function fetchUsers() {
+    try {
+        const snapshot = await get(child(dbRef, "users")); // Fetch "users" collection
+        if (snapshot.exists()) {
+            console.log("Users:", snapshot.val()); // Display data
+        } else {
+            console.log("No users found.");
+        }
+    } catch (error) {
+        console.error("Error fetching users:", error);
+    }
 }
 
-listAllCollections();
-
-// Fetch data from Firestore
-async function fetchData() {
-    const querySnapshot = await getDocs(collection(db, "your-collection-name"));
-    querySnapshot.forEach((doc) => {
-        console.log(doc.id, "=>", doc.data());
-    });
-}
-
-fetchData();
+fetchUsers();
 
 function sayHello() {
     alert("Hello, World!");
