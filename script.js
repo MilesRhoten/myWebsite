@@ -33,10 +33,10 @@ function formatTimestamp(timestamp) {
 }
 
 // Fetch data from Firestore
-async function fetchData() {
-    const dataContainer = document.getElementById("data-container");
+async function fetchData(col, dataCon) {
+    const dataContainer = document.getElementById(dataCon);
 
-    const querySnapshot = await getDocs(collection(db, "testCollection"));
+    const querySnapshot = await getDocs(collection(db, col));
     querySnapshot.forEach((doc) => {
         console.log(doc.id, "=>", doc.data());
         const data = doc.data();
@@ -49,7 +49,8 @@ async function fetchData() {
     });
 }
 
-fetchData();
+fetchData("testCollection", "data-container1");
+fetchData("a0", "data-container2");
 
 function sayHello() {
     alert("Hello, World!");

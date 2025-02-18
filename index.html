@@ -7,10 +7,19 @@
 </head>
 <body>
     <h1>Firebase Data Display</h1>
-    <div id="data-container">
+    <div id="container">
+        <div id="data-container1">
+            <h2>Pump 1</h2>
+            <canvas id="myChart"></canvas>
+        </div>
+        <div id="data-container2">
+            <h2>Pump 2</h2>
+        </div>
     </div>
 
     <!-- Load the script that fetches data from Firebase -->
     <script type="module" src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </body>
 </html>
